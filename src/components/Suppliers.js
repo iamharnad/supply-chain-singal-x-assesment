@@ -91,10 +91,20 @@ const Suppliers = () => {
             className='border p-4 mb-2 flex flex-col sm:flex-row justify-between items-center'
           >
             <div>
-              <div>Name: {supplier.name}</div>
-              <div>Contact Person: {supplier.contactPerson}</div>
-              <div>Phone: {supplier.phone}</div>
-              <div>Email: {supplier.email}</div>
+              <div className='font-semibold'>
+                Name: <span className='font-normal'>{supplier.name}</span>
+              </div>
+              <div className='font-semibold'>
+                Contact Person:{' '}
+                <span className='font-normal'>{supplier.contactPerson}</span>
+              </div>
+              <div className='font-semibold'>
+                Phone: <span className='font-normal'>{supplier.phone}</span>
+              </div>
+              <div className='font-semibold'>
+                Email:{' '}
+                <span className='font-normal italic'>{supplier.email}</span>
+              </div>
             </div>
             {editingSupplier ? (
               <button

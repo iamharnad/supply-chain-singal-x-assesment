@@ -1,29 +1,36 @@
-import React from 'react';
-import { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 export const InventoryContext = createContext();
 
 const InventoryProvider = ({ children }) => {
-  const [items, setItems] = useState(() => {
-    const savedItems = localStorage.getItem('inventoryItems');
-    return savedItems ? JSON.parse(savedItems) : [];
+  const [inventory, setInventory] = useState(() => {
+    const savedInventory = localStorage.getItem('inventory');
+    return savedInventory ? JSON.parse(savedInventory) : [];
   });
 
   useEffect(() => {
-    localStorage.setItem('inventoryItems', JSON.stringify(items));
-  }, [items]);
+    localStorage.setItem('inventory', JSON.stringify(inventory));
+  }, [inventory]);
 
-  const addItem = (item) => setItems([...items, item]);
-  const updateItem = (id, data) => {
-    setItems(
-      items.map((item) => (item.id === id ? { ...item, ...data } : item))
+  const addItem = (item) => {
+    setInventory([...inventory, item]);
+  };
+
+  const updateItem = (id, updatedItem) => {
+    setInventory(
+      inventory.map((item) =>
+        item.id === id ? { ...item, ...updatedItem } : item
+      )
     );
   };
-  const removeItem = (id) => setItems(items.filter((item) => item.id !== id));
+
+  const removeItem = (id) => {
+    setInventory(inventory.filter((item) => item.id !== id));
+  };
 
   return (
     <InventoryContext.Provider
-      value={{ items, addItem, updateItem, removeItem }}
+      value={{ inventory, addItem, updateItem, removeItem }}
     >
       {children}
     </InventoryContext.Provider>

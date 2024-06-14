@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { ShipmentContext } from '../contexts/ShipmentContext';
 
+const ITEMS_PER_PAGE = 4; // Define the number of items per page
+
 const Shipments = () => {
   const { shipments, addShipment, updateShipment } =
     useContext(ShipmentContext);
@@ -11,6 +13,17 @@ const Shipments = () => {
     estimatedDelivery: '',
   });
   const [editingShipmentId, setEditingShipmentId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(shipments.length / ITEMS_PER_PAGE);
+  const displayedItems = shipments.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   const handleAddShipment = () => {
     addShipment({ ...newShipment, id: Date.now() });
@@ -86,7 +99,7 @@ const Shipments = () => {
         {editingShipmentId ? (
           <button
             onClick={handleUpdateShipment}
-            className='bg-green-500 text-white p-2'
+            className='bg-orange-500 text-white p-2 mr-2 mb-2 px-6  rounded-3xl hover:bg-orange-700'
           >
             Update Shipment
           </button>
@@ -100,7 +113,7 @@ const Shipments = () => {
         )}
       </div>
       <div className='mt-4'>
-        {shipments.map((shipment) => (
+        {displayedItems.map((shipment) => (
           <div
             key={shipment.id}
             className='border p-4 mb-2 flex flex-col sm:flex-row justify-between items-center'
@@ -144,6 +157,25 @@ const Shipments = () => {
             </div>
           </div>
         ))}
+      </div>
+      <div className='flex justify-center mt-4'>
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className='bg-gray-300 text-black p-2 mx-2 rounded-lg'
+        >
+          Previous
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className='bg-gray-300 text-black p-2 mx-2 rounded-lg'
+        >
+          Next
+        </button>
       </div>
     </div>
   );
