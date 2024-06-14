@@ -2,6 +2,8 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 
 import Inventory from './components/Inventory';
 import InventoryProvider from './contexts/InventoryContext';
+import Shipments from './components/Shipments';
+import ShipmentProvider from './contexts/ShipmentContext';
 
 function App() {
   return (
@@ -32,7 +34,15 @@ function App() {
                 </InventoryProvider>
               }
             />
-            <Route path='/inventory' element={<Inventory />} />
+            <Route
+              path='/shipments'
+              element={
+                <ShipmentProvider>
+                  <Shipments />
+                </ShipmentProvider>
+              }
+            />
+            <Route path='/suppliers' element={<Shipments />} />
           </Routes>
         </div>
       </BrowserRouter>
