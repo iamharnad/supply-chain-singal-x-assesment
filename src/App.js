@@ -7,8 +7,8 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <div className='container mx-auto'>
-          <nav className='bg-gray-800 p-4 text-white'>
+        <nav className='bg-blue-800 p-4 text-white'>
+          <div className='container mx-auto'>
             <ul className='flex space-x-4'>
               <li>
                 <Link to='/'>Inventory</Link>
@@ -20,7 +20,9 @@ function App() {
                 <Link to='/suppliers'>Suppliers</Link>
               </li>
             </ul>
-          </nav>
+          </div>
+        </nav>
+        <div className='container mx-auto'>
           <Routes>
             <Route
               path='/'

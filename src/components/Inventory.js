@@ -11,30 +11,42 @@ const Inventory = () => {
     quantity: 0,
     location: '',
   });
+  const [editingItem, setEditingItem] = useState(null);
 
   const handleAddItem = () => {
     addItem({ ...newItem, id: Date.now() });
     setNewItem({ name: '', sku: '', quantity: 0, location: '' });
   };
 
+  const handleEditItem = (item) => {
+    setEditingItem(item);
+    setNewItem(item);
+  };
+
+  const handleUpdateItem = () => {
+    updateItem(editingItem.id, newItem);
+    setEditingItem(null);
+    setNewItem({ name: '', sku: '', quantity: 0, location: '' });
+  };
+
   return (
     <>
       <div className='p-4'>
-        <h2>Inventory Management</h2>
-        <div>
+        <h2 className='text-xl font-bold mb-4'>Inventory Management</h2>
+        <div className='flex flex-wrap mb-4'>
           <input
             type='text'
             placeholder='Item Name'
             value={newItem.name}
             onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-            className='border p-2 mr-2 rounded-3xl'
+            className='border p-2 mr-2 mb-2 rounded-3xl w-full sm:w-auto'
           />
           <input
             type='text'
             placeholder='SKU'
             value={newItem.sku}
             onChange={(e) => setNewItem({ ...newItem, sku: e.target.value })}
-            className='border p-2 mr-2 rounded-3xl'
+            className='border p-2 mr-2 mb-2 rounded-3xl w-full sm:w-auto'
           />
           <input
             type='number'
@@ -43,7 +55,7 @@ const Inventory = () => {
             onChange={(e) =>
               setNewItem({ ...newItem, quantity: parseInt(e.target.value) })
             }
-            className='border p-2 mr-2  rounded-3xl'
+            className='border p-2 mr-2 mb-2 rounded-3xl w-full sm:w-auto'
           />
           <input
             type='text'
@@ -52,30 +64,50 @@ const Inventory = () => {
             onChange={(e) =>
               setNewItem({ ...newItem, location: e.target.value })
             }
-            className='border p-2 mr-2 rounded-3xl'
+            className='border p-2 mr-2 mb-2 rounded-3xl w-full sm:w-auto'
           />
-          <button
-            onClick={handleAddItem}
-            className='bg-blue-500 text-white p-2 rounded-3xl'
-          >
-            Add Item
-          </button>
+          {editingItem ? (
+            <button
+              onClick={handleUpdateItem}
+              className='bg-orange-500 text-white p-2 mr-2 mb-2 px-6  rounded-3xl hover:bg-orange-700'
+            >
+              Update Item
+            </button>
+          ) : (
+            <button
+              onClick={handleAddItem}
+              className='bg-blue-800 hover:bg-green-600 text-white p-2 mr-2 mb-2 px-4 rounded-3xl'
+            >
+              Add Item
+            </button>
+          )}
         </div>
         <div className='mt-4'>
           {items.map((item) => (
-            <div key={item.id} className='border p-4 mb-2 flex justify-between'>
-              <div>
+            <div
+              key={item.id}
+              className='border p-4 mb-2 flex flex-col sm:flex-row justify-between items-center'
+            >
+              <div className='mb-2 sm:mb-0'>
                 <div>{item.name}</div>
                 <div>SKU: {item.sku}</div>
                 <div>Quantity: {item.quantity}</div>
                 <div>Location: {item.location}</div>
               </div>
-              <button
-                onClick={() => removeItem(item.id)}
-                className='bg-red-500 text-white p-2 '
-              >
-                Remove
-              </button>
+              <div className='flex space-x-2'>
+                <button
+                  onClick={() => handleEditItem(item)}
+                  className='border text-gray-500 border-gray-500 p-2 mr-2 mb-2 px-5 rounded-3xl hover:border-black hover:text-black'
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => removeItem(item.id)}
+                  className='bg-red-500 text-white p-2 mr-2 mb-2 px-6  rounded-3xl hover:bg-red-800'
+                >
+                  Remove
+                </button>
+              </div>
             </div>
           ))}
         </div>
