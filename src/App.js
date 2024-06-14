@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+
+import Inventory from './components/Inventory';
+import InventoryProvider from './contexts/InventoryContext';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <div className='container mx-auto'>
+          <nav className='bg-gray-800 p-4 text-white'>
+            <ul className='flex space-x-4'>
+              <li>
+                <Link to='/'>Inventory</Link>
+              </li>
+              <li>
+                <Link to='/shipments'>Shipments</Link>
+              </li>
+              <li>
+                <Link to='/suppliers'>Suppliers</Link>
+              </li>
+            </ul>
+          </nav>
+          <Routes>
+            <Route
+              path='/'
+              element={
+                <InventoryProvider>
+                  <Inventory />
+                </InventoryProvider>
+              }
+            />
+            <Route path='/inventory' element={<Inventory />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </>
   );
 }
 
