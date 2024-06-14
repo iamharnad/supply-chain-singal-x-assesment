@@ -1,9 +1,11 @@
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, NavLink } from 'react-router-dom';
 
 import Inventory from './components/Inventory';
 import InventoryProvider from './contexts/InventoryContext';
 import Shipments from './components/Shipments';
 import ShipmentProvider from './contexts/ShipmentContext';
+import SupplierProvider from './contexts/SupplierContext';
+import Suppliers from './components/Suppliers';
 
 function App() {
   return (
@@ -13,13 +15,34 @@ function App() {
           <div className='container mx-auto'>
             <ul className='flex space-x-4'>
               <li>
-                <Link to='/'>Inventory</Link>
+                <NavLink
+                  to='/'
+                  className={({ isActive }) =>
+                    isActive ? 'text-white font-bold' : 'hover:text-blue-300'
+                  }
+                >
+                  Inventory
+                </NavLink>
               </li>
               <li>
-                <Link to='/shipments'>Shipments</Link>
+                <NavLink
+                  to='/shipments'
+                  className={({ isActive }) =>
+                    isActive ? 'text-white font-bold' : 'hover:text-blue-300'
+                  }
+                >
+                  Shipments
+                </NavLink>
               </li>
               <li>
-                <Link to='/suppliers'>Suppliers</Link>
+                <NavLink
+                  to='/suppliers'
+                  className={({ isActive }) =>
+                    isActive ? 'text-white font-bold' : 'hover:text-blue-300'
+                  }
+                >
+                  Suppliers
+                </NavLink>
               </li>
             </ul>
           </div>
@@ -42,7 +65,14 @@ function App() {
                 </ShipmentProvider>
               }
             />
-            <Route path='/suppliers' element={<Shipments />} />
+            <Route
+              path='/suppliers'
+              element={
+                <SupplierProvider>
+                  <Suppliers />
+                </SupplierProvider>
+              }
+            />
           </Routes>
         </div>
       </BrowserRouter>

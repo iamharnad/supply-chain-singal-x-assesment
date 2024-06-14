@@ -72,10 +72,21 @@ const Shipments = () => {
           }
           className='border p-2 mr-2 rounded-3xl'
         />
+        <select
+          value={newShipment.status}
+          onChange={(e) =>
+            setNewShipment({ ...newShipment, status: e.target.value })
+          }
+          className='border p-2 mr-2 rounded-3xl'
+        >
+          <option value='In Transit'>In Transit</option>
+          <option value='Delayed'>Delayed</option>
+          <option value='Delivered'>Delivered</option>
+        </select>
         {editingShipmentId ? (
           <button
             onClick={handleUpdateShipment}
-            className='bg-orange-500 text-white p-2 mr-2 mb-2 px-6  rounded-3xl hover:bg-orange-700'
+            className='bg-green-500 text-white p-2'
           >
             Update Shipment
           </button>
@@ -104,7 +115,7 @@ const Shipments = () => {
             <div className='flex space-x-2'>
               <button
                 onClick={() => handleEditShipment(shipment)}
-                className='border text-gray-500 border-gray-500 p-2 mr-2 mb-2 px-5 rounded-3xl hover:border-black hover:text-black'
+                className='border text-blue-800 bg-gray-300 border-gray-300 p-2 mr-2 mb-2 px-5 rounded-3xl hover:bg-gray-400 hover:text-blue-800 shadow'
               >
                 Edit
               </button>
@@ -115,9 +126,20 @@ const Shipments = () => {
                     status: 'Delivered',
                   })
                 }
-                className='bg-red-500 text-white p-2 mr-2 mb-2 px-6  rounded-3xl hover:bg-red-800'
+                className='bg-green-500 text-white p-2 mr-2 mb-2 px-5  rounded-3xl'
               >
                 Mark as Delivered
+              </button>
+              <button
+                onClick={() =>
+                  updateShipment(shipment.id, {
+                    ...shipment,
+                    status: 'Delayed',
+                  })
+                }
+                className='bg-red-500 text-white p-2 mr-2 mb-2 px-5  rounded-3xl'
+              >
+                Mark as Delayed
               </button>
             </div>
           </div>

@@ -97,7 +97,7 @@ const Inventory = () => {
               <div className='flex space-x-2'>
                 <button
                   onClick={() => handleEditItem(item)}
-                  className='border text-gray-500 border-gray-500 p-2 mr-2 mb-2 px-5 rounded-3xl hover:border-black hover:text-black'
+                  className='border text-blue-800 bg-gray-300 border-gray-300 p-2 mr-2 mb-2 px-5 rounded-3xl hover:bg-gray-400 hover:text-blue-800 shadow'
                 >
                   Edit
                 </button>
