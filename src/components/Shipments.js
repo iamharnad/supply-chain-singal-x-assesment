@@ -1,6 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { ShipmentContext } from '../contexts/ShipmentContext';
 import { Helmet } from 'react-helmet';
+import { MdEdit } from 'react-icons/md';
+import { FaCheck } from 'react-icons/fa';
+import { FaClock } from 'react-icons/fa6';
 
 const ITEMS_PER_PAGE = 4; // Define the number of items per page
 
@@ -136,7 +139,7 @@ const Shipments = () => {
                   onClick={() => handleEditShipment(shipment)}
                   className='border text-blue-800 bg-gray-300 border-gray-300 p-2 mr-2 mb-2 px-5 rounded-3xl hover:bg-gray-400 hover:text-blue-800 shadow'
                 >
-                  Edit
+                  <MdEdit />
                 </button>
                 <button
                   onClick={() =>
@@ -147,7 +150,7 @@ const Shipments = () => {
                   }
                   className='bg-green-500 text-white p-2 mr-2 mb-2 px-5  rounded-3xl'
                 >
-                  Mark as Delivered
+                  <FaCheck />
                 </button>
                 <button
                   onClick={() =>
@@ -158,7 +161,7 @@ const Shipments = () => {
                   }
                   className='bg-red-500 text-white p-2 mr-2 mb-2 px-5  rounded-3xl'
                 >
-                  Mark as Delayed
+                  <FaClock />
                 </button>
               </div>
             </div>

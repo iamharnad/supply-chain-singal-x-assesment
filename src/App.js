@@ -18,6 +18,7 @@ import Login from './components/Login';
 import { AuthContext, AuthProvider } from './contexts/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ImExit } from 'react-icons/im';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -43,9 +44,9 @@ const LogoutButton = () => {
   return (
     <button
       onClick={handleLogout}
-      className='bg-red-500 text-white p-2 rounded-3xl'
+      className='bg-red-500 text-white p-2 rounded-3xl hover:bg-red-900'
     >
-      Logout
+      <ImExit />
     </button>
   );
 };
@@ -56,7 +57,7 @@ function App() {
       <BrowserRouter>
         <ToastContainer />
         <nav className='bg-blue-800 p-4 text-white'>
-          <div className='container mx-auto'>
+          <div className='container mx-auto flex justify-between items-center'>
             <ul className='flex space-x-4'>
               <AuthContext.Consumer>
                 {({ isAuthenticated }) =>
@@ -98,14 +99,22 @@ function App() {
                           Suppliers
                         </NavLink>
                       </li>
-                      <li className='ml-auto'>
-                        <LogoutButton />
-                      </li>
                     </>
                   ) : null
                 }
               </AuthContext.Consumer>
             </ul>
+            <AuthContext.Consumer>
+              {({ isAuthenticated }) =>
+                isAuthenticated ? (
+                  <ul className='flex space-x-4'>
+                    <li className='ml-auto'>
+                      <LogoutButton />
+                    </li>
+                  </ul>
+                ) : null
+              }
+            </AuthContext.Consumer>
           </div>
         </nav>
         <div className='container mx-auto'>

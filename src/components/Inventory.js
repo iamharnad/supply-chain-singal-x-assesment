@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { InventoryContext } from '../contexts/InventoryContext';
 import { Helmet } from 'react-helmet';
+import { MdEdit } from 'react-icons/md';
+import { MdDelete } from 'react-icons/md';
 
 const ITEMS_PER_PAGE = 4; // Define the number of items per page
 
@@ -121,13 +123,13 @@ const Inventory = () => {
                   onClick={() => handleEditItem(item)}
                   className='border text-blue-800 bg-gray-300 border-gray-300 p-2 mr-2 mb-2 px-5 rounded-3xl hover:bg-gray-400 hover:text-blue-800 shadow'
                 >
-                  Edit
+                  <MdEdit />
                 </button>
                 <button
                   onClick={() => removeItem(item.id)}
                   className='bg-red-500 text-white p-2 mr-2 mb-2 px-5  rounded-3xl'
                 >
-                  Remove
+                  <MdDelete />
                 </button>
               </div>
             </div>

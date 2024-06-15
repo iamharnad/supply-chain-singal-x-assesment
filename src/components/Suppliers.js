@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { SupplierContext } from '../contexts/SupplierContext';
 import { Helmet } from 'react-helmet';
+import { MdEdit } from 'react-icons/md';
+import { MdDelete } from 'react-icons/md';
 
 const Suppliers = () => {
   const { suppliers, addSupplier, updateSupplier, removeSupplier } =
@@ -126,13 +128,13 @@ const Suppliers = () => {
                     onClick={() => handleEditSupplier(supplier)}
                     className='border text-blue-800 bg-gray-300 border-gray-300 p-2 mr-2 mb-2 px-5 rounded-3xl hover:bg-gray-400 hover:text-blue-800 shadow'
                   >
-                    Edit
+                    <MdEdit />
                   </button>
                   <button
                     onClick={() => removeSupplier(supplier.id)}
                     className='bg-red-500 text-white p-2 mr-2 mb-2 px-6  rounded-3xl hover:bg-red-800'
                   >
-                    Remove
+                    <MdDelete />
                   </button>
                 </div>
               )}
