@@ -3,6 +3,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import { Helmet } from 'react-helmet';
 
 const Logout = () => {
+  //get the logout from authcontext
   const { logout } = useContext(AuthContext);
 
   return (

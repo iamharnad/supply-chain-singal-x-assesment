@@ -1,8 +1,10 @@
 import React, { createContext, useState, useEffect } from 'react';
 
+//context for the shipments
 export const ShipmentContext = createContext();
 
 const ShipmentProvider = ({ children }) => {
+  //initialize the inventory state locally
   const [shipments, setShipments] = useState(() => {
     const savedShipments = localStorage.getItem('shipments');
     return savedShipments ? JSON.parse(savedShipments) : [];
@@ -12,10 +14,12 @@ const ShipmentProvider = ({ children }) => {
     localStorage.setItem('shipments', JSON.stringify(shipments));
   }, [shipments]);
 
+  //add shipment
   const addShipment = (shipment) => {
     setShipments([...shipments, shipment]);
   };
 
+  //update Shipment
   const updateShipment = (id, updatedShipment) => {
     setShipments(
       shipments.map((shipment) =>

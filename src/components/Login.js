@@ -5,11 +5,13 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
+  //state to manage username and password
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);//get login function from authcontext
   const navigate = useNavigate();
 
+  //handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     // Form validation

@@ -120,82 +120,78 @@ const Shipments = () => {
             </button>
           )}
         </div>
-        <div className='mt-4'>
-          {displayedItems.map((shipment) => (
-            <div
-              key={shipment.id}
-              className='border p-4 mb-2 flex flex-col md:flex-row justify-between items-center'
-            >
-              <div className='flex-1'>
-                <div className='font-semibold'>
-                  Shipment ID:{' '}
-                  <span className='font-normal'>{shipment.id}</span>
-                </div>
-                <div className='font-semibold'>
-                  Origin: <span className='font-normal'>{shipment.origin}</span>
-                </div>
-                <div className='font-semibold'>
-                  Destination:{' '}
-                  <span className='font-normal'>{shipment.destination}</span>
-                </div>
-                <div className='font-semibold'>
-                  Status: <span className='font-normal'>{shipment.status}</span>
-                </div>
-                <div className='font-semibold'>
-                  Estimated Delivery:{' '}
-                  <span className='font-normal'>
+        <div className='overflow-x-auto'>
+          <table className='min-w-full bg-white'>
+            <thead>
+              <tr>
+                <th className='py-2 px-4 border-b'>ID</th>
+                <th className='py-2 px-4 border-b'>Origin</th>
+                <th className='py-2 px-4 border-b'>Destination</th>
+                <th className='py-2 px-4 border-b'>Status</th>
+                <th className='py-2 px-4 border-b'>Estimated Delivery</th>
+                <th className='py-2 px-4 border-b'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {displayedItems.map((shipment) => (
+                <tr key={shipment.id}>
+                  <td className='py-2 px-4 border-b'>{shipment.id}</td>
+                  <td className='py-2 px-4 border-b'>{shipment.origin}</td>
+                  <td className='py-2 px-4 border-b'>{shipment.destination}</td>
+                  <td className='py-2 px-4 border-b'>{shipment.status}</td>
+                  <td className='py-2 px-4 border-b'>
                     {shipment.estimatedDelivery}
-                  </span>
-                </div>
-              </div>
-              <div className='flex space-x-2 mt-2 md:mt-0'>
-                <button
-                  onClick={() => handleEditShipment(shipment)}
-                  className='border text-blue-800 bg-gray-300 border-gray-300 p-2 rounded-3xl hover:bg-gray-400 hover:text-blue-800 shadow'
-                >
-                  <MdEdit />
-                </button>
-                <button
-                  onClick={() =>
-                    updateShipment(shipment.id, {
-                      ...shipment,
-                      status: 'Delivered',
-                    })
-                  }
-                  className='bg-green-500 text-white p-2 rounded-3xl hover:bg-green-700'
-                >
-                  <FaCheck />
-                </button>
-                <button
-                  onClick={() =>
-                    updateShipment(shipment.id, {
-                      ...shipment,
-                      status: 'Delayed',
-                    })
-                  }
-                  className='bg-red-500 text-white p-2 rounded-3xl hover:bg-red-700'
-                >
-                  <FaClock />
-                </button>
-              </div>
-            </div>
-          ))}
+                  </td>
+                  <td className='py-2 px-4 border-b flex space-x-2'>
+                    <button
+                      onClick={() => handleEditShipment(shipment)}
+                      className='border text-blue-800 bg-gray-300 border-gray-300 p-2 rounded-3xl hover:bg-gray-400 hover:text-blue-800 shadow'
+                    >
+                      <MdEdit />
+                    </button>
+                    <button
+                      onClick={() =>
+                        updateShipment(shipment.id, {
+                          ...shipment,
+                          status: 'Delivered',
+                        })
+                      }
+                      className='bg-green-500 text-white p-2 rounded-3xl hover:bg-green-700'
+                    >
+                      <FaCheck />
+                    </button>
+                    <button
+                      onClick={() =>
+                        updateShipment(shipment.id, {
+                          ...shipment,
+                          status: 'Delayed',
+                        })
+                      }
+                      className='bg-red-500 text-white p-2 rounded-3xl hover:bg-red-700'
+                    >
+                      <FaClock />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
         <div className='flex justify-center mt-4'>
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className='bg-gray-300 text-black p-2 mx-2 rounded-lg'
+            className='bg-gray-300 text-black px-4 p-2 mx-2 disabled:opacity-50 rounded-3xl'
           >
             Previous
           </button>
-          <span>
+          <span className='m-2'>
             Page {currentPage} of {totalPages}
           </span>
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className='bg-gray-300 text-black p-2 mx-2 rounded-lg'
+            className='bg-gray-300 text-black px-4 p-2 mx-2 disabled:opacity-50 rounded-3xl'
           >
             Next
           </button>

@@ -1,8 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { InventoryContext } from '../contexts/InventoryContext';
 import { Helmet } from 'react-helmet';
-import { MdEdit } from 'react-icons/md';
-import { MdDelete } from 'react-icons/md';
+import { MdEdit, MdDelete } from 'react-icons/md';
 
 const ITEMS_PER_PAGE = 4; // Define the number of items per page
 
@@ -38,7 +37,6 @@ const Inventory = () => {
     setCurrentPage(newPage);
   };
 
-  // Ensure inventory is defined and is an array before accessing length
   const totalPages = inventory
     ? Math.ceil(inventory.length / ITEMS_PER_PAGE)
     : 1;
@@ -106,34 +104,42 @@ const Inventory = () => {
             </button>
           )}
         </div>
-        <div className='mt-4'>
-          {displayedItems.map((item) => (
-            <div
-              key={item.id}
-              className='border p-4 mb-2 flex flex-col md:flex-row justify-between items-center'
-            >
-              <div className='flex-1'>
-                <div>Name: {item.name}</div>
-                <div>SKU: {item.sku}</div>
-                <div>Quantity: {item.quantity}</div>
-                <div>Location: {item.location}</div>
-              </div>
-              <div className='flex space-x-2 mt-2 md:mt-0'>
-                <button
-                  onClick={() => handleEditItem(item)}
-                  className='border text-blue-800 bg-gray-300 border-gray-300 p-2 rounded-3xl hover:bg-gray-400 hover:text-blue-800 shadow'
-                >
-                  <MdEdit />
-                </button>
-                <button
-                  onClick={() => removeItem(item.id)}
-                  className='bg-red-500 text-white p-2 rounded-3xl hover:bg-red-700'
-                >
-                  <MdDelete />
-                </button>
-              </div>
-            </div>
-          ))}
+        <div className='overflow-x-auto mt-10'>
+          <table className='min-w-full bg-white'>
+            <thead className='bg-blue-100'>
+              <tr>
+                <th className='py-2 px-4 border-b'>Name</th>
+                <th className='py-2 px-4 border-b'>SKU</th>
+                <th className='py-2 px-4 border-b'>Quantity</th>
+                <th className='py-2 px-4 border-b'>Location</th>
+                <th className='py-2 px-4 border-b'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {displayedItems.map((item) => (
+                <tr key={item.id}>
+                  <td className='py-2 px-4 border-b'>{item.name}</td>
+                  <td className='py-2 px-4 border-b'>{item.sku}</td>
+                  <td className='py-2 px-4 border-b'>{item.quantity}</td>
+                  <td className='py-2 px-4 border-b'>{item.location}</td>
+                  <td className='py-2 px-4 border-b flex space-x-2'>
+                    <button
+                      onClick={() => handleEditItem(item)}
+                      className='border text-blue-800 bg-gray-300 border-gray-300 p-2 rounded-3xl hover:bg-gray-400 hover:text-blue-800 shadow'
+                    >
+                      <MdEdit />
+                    </button>
+                    <button
+                      onClick={() => removeItem(item.id)}
+                      className='bg-red-500 text-white p-2 rounded-3xl hover:bg-red-700'
+                    >
+                      <MdDelete />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
         <div className='flex justify-center mt-4'>
           <button

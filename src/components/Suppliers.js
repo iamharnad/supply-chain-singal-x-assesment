@@ -92,44 +92,44 @@ const Suppliers = () => {
             </button>
           )}
         </div>
-        <div className='mt-4'>
-          {suppliers.map((supplier) => (
-            <div
-              key={supplier.id}
-              className='border p-4 mb-2 flex flex-col md:flex-row justify-between items-center'
-            >
-              <div className='flex-1'>
-                <div className='font-semibold'>
-                  Name: <span className='font-normal'>{supplier.name}</span>
-                </div>
-                <div className='font-semibold'>
-                  Contact Person:{' '}
-                  <span className='font-normal'>{supplier.contactPerson}</span>
-                </div>
-                <div className='font-semibold'>
-                  Phone: <span className='font-normal'>{supplier.phone}</span>
-                </div>
-                <div className='font-semibold'>
-                  Email:{' '}
-                  <span className='font-normal italic'>{supplier.email}</span>
-                </div>
-              </div>
-              <div className='flex space-x-2 mt-2 md:mt-0'>
-                <button
-                  onClick={() => handleEditSupplier(supplier)}
-                  className='border text-blue-800 bg-gray-300 border-gray-300 p-2 rounded-3xl hover:bg-gray-400 hover:text-blue-800 shadow'
-                >
-                  <MdEdit />
-                </button>
-                <button
-                  onClick={() => removeSupplier(supplier.id)}
-                  className='bg-red-500 text-white p-2 rounded-3xl hover:bg-red-700'
-                >
-                  <MdDelete />
-                </button>
-              </div>
-            </div>
-          ))}
+        <div className='overflow-x-auto mt-10'>
+          <table className='min-w-full bg-white'>
+            <thead className='bg-blue-100'>
+              <tr>
+                <th className='py-2 px-4 border-b'>Name</th>
+                <th className='py-2 px-4 border-b'>Contact Person</th>
+                <th className='py-2 px-4 border-b'>Phone</th>
+                <th className='py-2 px-4 border-b'>Email</th>
+                <th className='py-2 px-4 border-b'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {suppliers.map((supplier) => (
+                <tr key={supplier.id}>
+                  <td className='py-2 px-4 border-b'>{supplier.name}</td>
+                  <td className='py-2 px-4 border-b'>
+                    {supplier.contactPerson}
+                  </td>
+                  <td className='py-2 px-4 border-b'>{supplier.phone}</td>
+                  <td className='py-2 px-4 border-b'>{supplier.email}</td>
+                  <td className='py-2 px-4 border-b flex space-x-2'>
+                    <button
+                      onClick={() => handleEditSupplier(supplier)}
+                      className='border text-blue-800 bg-gray-300 border-gray-300 p-2 rounded-3xl hover:bg-gray-400 hover:text-blue-800 shadow'
+                    >
+                      <MdEdit />
+                    </button>
+                    <button
+                      onClick={() => removeSupplier(supplier.id)}
+                      className='bg-red-500 text-white p-2 rounded-3xl hover:bg-red-700'
+                    >
+                      <MdDelete />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </>
