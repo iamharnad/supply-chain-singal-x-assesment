@@ -1,8 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { SupplierContext } from '../contexts/SupplierContext';
 import { Helmet } from 'react-helmet';
-import { MdEdit } from 'react-icons/md';
-import { MdDelete } from 'react-icons/md';
+import { MdEdit, MdDelete } from 'react-icons/md';
 
 const Suppliers = () => {
   const { suppliers, addSupplier, updateSupplier, removeSupplier } =
@@ -40,7 +39,7 @@ const Suppliers = () => {
 
       <div className='p-4'>
         <h2 className='text-xl font-bold mb-4'>Supplier Information</h2>
-        <div>
+        <div className='flex flex-col md:flex-row mb-4'>
           <input
             type='text'
             placeholder='Supplier Name'
@@ -48,7 +47,7 @@ const Suppliers = () => {
             onChange={(e) =>
               setNewSupplier({ ...newSupplier, name: e.target.value })
             }
-            className='border p-2 mr-2 rounded-3xl'
+            className='border p-2 mb-2 md:mb-0 md:mr-2 rounded-3xl w-full md:w-auto'
           />
           <input
             type='text'
@@ -57,7 +56,7 @@ const Suppliers = () => {
             onChange={(e) =>
               setNewSupplier({ ...newSupplier, contactPerson: e.target.value })
             }
-            className='border p-2 mr-2 rounded-3xl'
+            className='border p-2 mb-2 md:mb-0 md:mr-2 rounded-3xl w-full md:w-auto'
           />
           <input
             type='text'
@@ -66,7 +65,7 @@ const Suppliers = () => {
             onChange={(e) =>
               setNewSupplier({ ...newSupplier, phone: e.target.value })
             }
-            className='border p-2 mr-2 rounded-3xl'
+            className='border p-2 mb-2 md:mb-0 md:mr-2 rounded-3xl w-full md:w-auto'
           />
           <input
             type='email'
@@ -75,19 +74,19 @@ const Suppliers = () => {
             onChange={(e) =>
               setNewSupplier({ ...newSupplier, email: e.target.value })
             }
-            className='border p-2 mr-2 rounded-3xl'
+            className='border p-2 mb-2 md:mb-0 md:mr-2 rounded-3xl w-full md:w-auto'
           />
           {editingSupplier ? (
             <button
               onClick={handleUpdateSupplier}
-              className='bg-orange-500 text-white p-2 mr-2 mb-2 px-6  rounded-3xl hover:bg-orange-700'
+              className='bg-orange-500 text-white p-2 px-4 rounded-3xl w-full md:w-auto md:ml-2 hover:bg-orange-700'
             >
               Update Supplier
             </button>
           ) : (
             <button
               onClick={handleAddSupplier}
-              className='bg-blue-800 hover:bg-green-600 text-white p-2 mr-2 mb-2 px-4 rounded-3xl'
+              className='bg-blue-800 text-white p-2 px-4 rounded-3xl w-full md:w-auto md:ml-2 hover:bg-green-600'
             >
               Add Supplier
             </button>
@@ -97,9 +96,9 @@ const Suppliers = () => {
           {suppliers.map((supplier) => (
             <div
               key={supplier.id}
-              className='border p-4 mb-2 flex flex-col sm:flex-row justify-between items-center'
+              className='border p-4 mb-2 flex flex-col md:flex-row justify-between items-center'
             >
-              <div>
+              <div className='flex-1'>
                 <div className='font-semibold'>
                   Name: <span className='font-normal'>{supplier.name}</span>
                 </div>
@@ -115,29 +114,20 @@ const Suppliers = () => {
                   <span className='font-normal italic'>{supplier.email}</span>
                 </div>
               </div>
-              {editingSupplier ? (
+              <div className='flex space-x-2 mt-2 md:mt-0'>
                 <button
-                  onClick={handleUpdateSupplier}
-                  className='bg-orange-500 text-white p-2 mr-2 mb-2 px-6  rounded-3xl hover:bg-orange-700'
+                  onClick={() => handleEditSupplier(supplier)}
+                  className='border text-blue-800 bg-gray-300 border-gray-300 p-2 rounded-3xl hover:bg-gray-400 hover:text-blue-800 shadow'
                 >
-                  Update Supplier
+                  <MdEdit />
                 </button>
-              ) : (
-                <div className='flex space-x-2'>
-                  <button
-                    onClick={() => handleEditSupplier(supplier)}
-                    className='border text-blue-800 bg-gray-300 border-gray-300 p-2 mr-2 mb-2 px-5 rounded-3xl hover:bg-gray-400 hover:text-blue-800 shadow'
-                  >
-                    <MdEdit />
-                  </button>
-                  <button
-                    onClick={() => removeSupplier(supplier.id)}
-                    className='bg-red-500 text-white p-2 mr-2 mb-2 px-6  rounded-3xl hover:bg-red-800'
-                  >
-                    <MdDelete />
-                  </button>
-                </div>
-              )}
+                <button
+                  onClick={() => removeSupplier(supplier.id)}
+                  className='bg-red-500 text-white p-2 rounded-3xl hover:bg-red-700'
+                >
+                  <MdDelete />
+                </button>
+              </div>
             </div>
           ))}
         </div>
