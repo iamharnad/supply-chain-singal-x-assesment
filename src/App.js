@@ -5,6 +5,7 @@ import {
   Routes,
   NavLink,
   Navigate,
+  useNavigate,
 } from 'react-router-dom';
 import Inventory from './components/Inventory';
 import InventoryProvider from './contexts/InventoryContext';
@@ -15,6 +16,8 @@ import Suppliers from './components/Suppliers';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import { AuthContext, AuthProvider } from './contexts/AuthContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -26,15 +29,37 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
+const LogoutButton = () => {
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    if (window.confirm('Are you sure you want to log out?')) {
+      logout();
+      navigate('/login');
+    }
+  };
+
+  return (
+    <button
+      onClick={handleLogout}
+      className='bg-red-500 text-white p-2 rounded-3xl'
+    >
+      Logout
+    </button>
+  );
+};
+
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <ToastContainer />
         <nav className='bg-blue-800 p-4 text-white'>
-          <div className='container mx-auto flex justify-between'>
+          <div className='container mx-auto'>
             <ul className='flex space-x-4'>
               <AuthContext.Consumer>
-                {({ isAuthenticated, logout }) =>
+                {({ isAuthenticated }) =>
                   isAuthenticated ? (
                     <>
                       <li>
@@ -74,12 +99,7 @@ function App() {
                         </NavLink>
                       </li>
                       <li className='ml-auto'>
-                        <button
-                          onClick={logout}
-                          className='bg-red-500 text-white p-2 rounded-3xl'
-                        >
-                          Logout
-                        </button>
+                        <LogoutButton />
                       </li>
                     </>
                   ) : null

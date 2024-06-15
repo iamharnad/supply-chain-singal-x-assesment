@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -10,15 +12,26 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(username, password);
-    navigate('/inventory');
+    // Form validation
+    if (!username || !password) {
+      toast.error('Please fill in all fields.');
+      return;
+    }
+
+    try {
+      login(username, password);
+      toast.success('Login successful!');
+      navigate('/inventory');
+    } catch (error) {
+      toast.error('Login failed. Please check your credentials.');
+    }
   };
 
   return (
     <div className='flex justify-center items-center h-screen'>
       <form
         onSubmit={handleSubmit}
-        className='bg-gray-200 p-6 rounded-3xl shadow-md w-80'
+        className='bg-white p-6 rounded-3xl shadow-md w-80'
       >
         <h2 className='text-2xl font-bold mb-4'>Login</h2>
         <input
