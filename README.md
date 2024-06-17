@@ -23,9 +23,8 @@ https://supplychain-signalx.netlify.app/login
 
 Credentials:
 
-**username:** admin@gmail.com
+**Please Signup for the first time to use the service** 
 
-**password:** abc123
 
 ## Installation
 
